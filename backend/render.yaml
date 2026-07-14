@@ -1,0 +1,38 @@
+# 📦 Render Blueprint — Déploiement one-click
+# Clique sur : https://render.com/deploy?repo=<URL_DU_REPO>
+# Ou utilise Render Dashboard → New Web Service → Connecter ton repo
+#
+# Variables d'environnement à configurer dans Render Dashboard :
+# Voir .env.example pour les détails
+
+services:
+  - type: web
+    name: concours-med-belgique-backend
+    runtime: node
+    repo: https://github.com/KINGTTM1/concours-med-belgique-backend
+    branch: main
+    rootDir: backend
+    buildCommand: npm install
+    startCommand: node server.js
+    envVars:
+      - key: PORT
+        value: "3000"
+      - key: ADMIN_SECRET
+        generateValue: true
+      - key: PAYPAL_EMAIL
+        value: migueltaba
+      - key: PAYPAL_CURRENCY
+        value: EUR
+      - key: PAYPAL_PRICE
+        value: "50"
+      - key: PAYPAL_SANDBOX
+        value: "false"
+      - key: FIREBASE_PROJECT_ID
+        value: "concours-med-belgique"
+      - key: TELEGRAM_BOT_TOKEN
+        sync: false
+      - key: TELEGRAM_CHAT_ID
+        sync: false
+    plan: free
+    healthCheckPath: /
+    autoDeploy: true
